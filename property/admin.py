@@ -5,6 +5,7 @@ from .models import Flat
 
 class FlatAdmin(admin.ModelAdmin):
     search_fields = ('owner', 'owners_phonenumber', 'description', 'town', 'town_district', 'address', 'floor')
+    readonly_fields = ['created_at']
 
 
 admin.site.register(Flat, FlatAdmin)
