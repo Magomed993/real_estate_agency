@@ -4,12 +4,14 @@ from .models import Flat
 from .models import Complaint
 
 
+
 class FlatAdmin(admin.ModelAdmin):
     search_fields = ('owner', 'owners_phonenumber', 'description', 'town', 'town_district', 'address', 'floor')
     readonly_fields = ['created_at']
     list_display = ('address', 'price', 'new_building', 'construction_year', 'town')
     list_editable = ['new_building']
     list_filter = ('new_building', 'rooms_number', 'has_balcony')
+    raw_id_fields = ('liked_by',)
 
 
 class ComlaintAdmin(admin.ModelAdmin):
