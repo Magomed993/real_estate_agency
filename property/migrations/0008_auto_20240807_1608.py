@@ -12,6 +12,13 @@ def move_phone(apps, schema_editors):
         post.save()
 
 
+def reverse_move_phone(apps, schema_editors):
+    Post = apps.get_model('property', 'Flat')
+    for post in Post.objects.all():
+        post.owner_pure_phone = None
+        post.save()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -19,5 +26,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(move_phone)
+        migrations.RunPython(move_phone, reverse_move_phone)
     ]

@@ -12,6 +12,7 @@ def get_owner_details(apps, schema_editors):
                                                         owner_pure_phone=flat.owner_pure_phone)
         owner.apartments_ownership.add(flat)
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
