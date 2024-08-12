@@ -10,10 +10,10 @@ class OwnerInline(admin.TabularInline):
 
 @admin.register(Flat)
 class FlatAdmin(admin.ModelAdmin):
-    search_fields = ('owner', 'owners_phonenumber', 'description', 'town', 'town_district', 'address', 'floor')
+    search_fields = ('description', 'town', 'town_district', 'address', 'floor')
     readonly_fields = ['created_at']
     list_display = ('address', 'price', 'new_building', 'construction_year',
-                    'town', 'owners_phonenumber', 'owner_pure_phone')
+                    'town',)
     list_editable = ['new_building']
     list_filter = ('new_building', 'rooms_number', 'has_balcony')
     raw_id_fields = ('liked_by',)
@@ -24,9 +24,10 @@ class FlatAdmin(admin.ModelAdmin):
 
 @admin.register(Complaint)
 class ComlaintAdmin(admin.ModelAdmin):
-    raw_id_fields = ('who_complained', 'apartment_complained')
+    raw_id_fields = ('name', 'apartment_complained')
 
 
 @admin.register(Owner)
 class OwnerAdmin(admin.ModelAdmin):
+    search_fields = ('id', 'name', 'phonenumber')
     raw_id_fields = ('apartments_ownership',)
