@@ -58,7 +58,7 @@ class Complaint(models.Model):
     name = models.ForeignKey(User, verbose_name='Кто жаловался', on_delete=models.SET_NULL,
                              null=True, related_name='complaints')
     apartment = models.ForeignKey(Flat, verbose_name='Квартира, на которую пожаловались',
-                                  on_delete=models.SET_NULL, null=True, related_name='complaint_flats')
+                                  on_delete=models.SET_NULL, null=True, related_name='complaints')
     text = models.TextField(verbose_name='Текст жалобы')
 
     def __str__(self):
