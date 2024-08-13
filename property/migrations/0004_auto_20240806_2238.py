@@ -4,14 +4,14 @@ from django.db import migrations
 
 
 def move_body(apps, schema_editor):
-    Post = apps.get_model('property', 'Flat')
-    for post in Post.objects.all():
-        if post.construction_year >= 2015:
-            post.new_building = True
-            post.save()
-        else:
-            post.new_building = False
-            post.save()
+    Flat = apps.get_model('property', 'Flat')
+    Flat.objects.filter(construction_year__gte=2015).update(new_building=True)
+    Flat.objects.filter(construction_year__lt=2015).update(new_building=False)
+
+
+def reverse_move_body(apps, schema_editors):
+    Flat = apps.get_model('property', 'Flat')
+    Flat.objects.all().update(new_building=None)
 
 
 class Migration(migrations.Migration):
@@ -21,5 +21,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(move_body)
+        migrations.RunPython(move_body, reverse_move_body)
     ]

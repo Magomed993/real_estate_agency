@@ -5,13 +5,15 @@ from django.db import migrations
 
 def move_phone(apps, schema_editors):
     Flat = apps.get_model('property', 'Flat')
-    Flat.objects.filter(construction_year__gte=2015).update(new_building=True)
-    Flat.objects.filter(construction_year__lt=2015).update(new_building=False)
+    for flat in Flat.objects.all().iterator():
+        number_parse = phonenumbers.parse(flat.owners_phonenumber, 'RU')
+        final_number = phonenumbers.format_number(number_parse, phonenumbers.PhoneNumberFormat.E164)
+        Flat.objects.filter(id=flat.id).update(owner_pure_phone=final_number)
 
 
 def reverse_move_phone(apps, schema_editors):
     Flat = apps.get_model('property', 'Flat')
-    Flat.objects.all().update(new_building=None)
+    Flat.objects.update_or_create(owner_pure_phone=None)
 
 
 class Migration(migrations.Migration):
